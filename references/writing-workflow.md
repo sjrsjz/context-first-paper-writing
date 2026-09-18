@@ -4,6 +4,12 @@
 
 Use this workflow for substantive academic drafting, restructuring, and rewriting. Its job is to prevent locally grammatical sentences from forming a globally unmotivated argument.
 
+## Working directory and retention
+
+Create a marked work directory with `scripts/manage_workdir.py init`. Keep every output named below relative to that directory. Do not store transient workflow artifacts in the manuscript repository by default.
+
+After a check-only task, keep only `summary.md` when a persistent report is useful; otherwise return the summary to the user and clean the whole directory. After a successful manuscript edit, verify the document and clean the whole directory unless the user requested preservation. Use only the cleanup script because it validates the sentinel and resolved path before deletion.
+
 ## Context model
 
 For sentence $s_i$, define $\Gamma_i$ to contain:
@@ -97,6 +103,8 @@ Output: `07-readback.md`.
 ## Step 8: Apply and verify
 
 Only after readback passes, apply the expanded draft to the manuscript. Recheck the abstract, introduction, contribution list, experiments, limitations, and conclusion when the claim scope changed. Compile or render the document, verify citations and labels, and check page and layout constraints.
+
+Write a concise `summary.md` only when a retained file report is needed. It should record the inspected scope, findings or changes, validation, unresolved limitations, and the final manuscript paths. It must not reproduce the discarded ledgers.
 
 ## Hard failures
 

@@ -70,3 +70,19 @@ Use status values such as `preserved`, `authorized removal`, `authorized revisio
 |---|---|---|---|---|---|
 
 Evidence levels may include mathematical structure, proof, implementation, numerical audit, and empirical experiment. Do not collapse them into a single “supported” label.
+
+## Retained summary
+
+Use this only when a persistent report is requested or materially useful. Cleanup should remove the detailed ledgers.
+
+```markdown
+# Summary
+- Task and inspected scope:
+- Source version:
+- Findings or applied changes:
+- Claim/evidence effects:
+- Validation performed:
+- Unresolved limitations:
+- Final manuscript or report paths:
+- Cleanup: intermediates removed; retained files listed here
+```

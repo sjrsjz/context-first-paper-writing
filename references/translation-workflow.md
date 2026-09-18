@@ -6,6 +6,8 @@ Translation is a new writing pass over preserved scientific propositions. Do not
 
 Read `writing-workflow.md` first. A translation must execute every writing step again in the target language. Source-language artifacts provide evidence; they do not replace target-language artifacts.
 
+Create the translation work directory with `scripts/manage_workdir.py init`, outside the source repository. All outputs below are relative to that directory. After the translated manuscript is applied and the cross-version audit passes, clean the work directory unless the user explicitly requests the bilingual evidence. A check-only translation audit normally retains only `summary.md`.
+
 ## What must remain invariant
 
 Preserve:

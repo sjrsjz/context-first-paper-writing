@@ -39,7 +39,15 @@ For a local sentence edit, the workflow may be compact, but it must still record
 
 ## Artifacts and enforcement
 
-Store artifacts in a task-specific directory such as `auto/<task>/`. Use the templates rather than retrospective prose justifying an already written draft. For a substantial task, run:
+Keep workflow artifacts outside the repository by default. Create a marked task directory under the operating system's temporary directory:
+
+```text
+python scripts/manage_workdir.py init --project <project-root> --task <task-name>
+```
+
+The command prints the task directory. Use it for every workflow artifact. Do not place transient ledgers in `auto/`, the manuscript tree, or another repository directory unless the user explicitly requests versioned artifacts.
+
+Use the templates rather than retrospective prose justifying an already written draft. For a substantial task, run:
 
 ```text
 python scripts/check_workflow_artifacts.py <artifact-directory> --mode writing
@@ -47,6 +55,24 @@ python scripts/check_workflow_artifacts.py <artifact-directory> --mode translati
 ```
 
 The script checks that required artifacts exist and contain substantive text. It cannot validate reasoning. Manually inspect the Context ledger, proposition dependency graph, claim-evidence mapping, and target-language readback.
+
+## Cleanup and retention
+
+Treat intermediate artifacts as temporary process state.
+
+- For a check or audit that does not modify the manuscript, return the findings in the response. If a file report is useful or requested, write `summary.md`, then remove every other intermediate artifact with `manage_workdir.py cleanup <task-directory> --keep-summary`. Otherwise remove the whole task directory.
+- For drafting, rewriting, or translation, apply and verify the approved manuscript change, then remove the whole task directory unless the user asked to retain the workflow evidence.
+- For blocked work, retain only `summary.md` when it materially helps resumption; otherwise clean the task directory.
+- Never remove user files, manuscript files, or an unmarked directory. The cleanup script requires a sentinel, verifies the resolved directory against the recorded temporary root, and refuses to delete the root itself.
+
+Run cleanup from the skill directory:
+
+```text
+python scripts/manage_workdir.py cleanup <task-directory>
+python scripts/manage_workdir.py cleanup <task-directory> --keep-summary
+```
+
+Report what was retained and its path. User instructions to preserve, relocate, or version artifacts override these defaults.
 
 ## Stop conditions
 
@@ -65,4 +91,4 @@ When a stop condition appears, return to the earliest invalid artifact instead o
 
 ## Completion
 
-Report what changed, which obligations the revision now discharges, how claim and evidence scope were preserved, which checks ran, and any material limitation. Keep necessary revisions distinct from optional improvements.
+Report what changed, which obligations the revision now discharges, how claim and evidence scope were preserved, which checks ran, what temporary state was cleaned or retained, and any material limitation. Keep necessary revisions distinct from optional improvements.
